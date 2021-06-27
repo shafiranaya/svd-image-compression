@@ -1,41 +1,40 @@
 import numpy as np
-from numpy import linalg
 import cv2
 
-path = 'in/momo.jpeg'
-img = cv2.imread(path)
-print(type(img))
-print(img.shape)
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-print(gray)
-print("gray shape",gray.shape)
-U_gray, S_gray, Vt_gray = np.linalg.svd(gray)
-print('A: \n',gray)
-print('U: \n',U_gray)
-print('S: \n',S_gray)
-print('Vt: \n',Vt_gray)
-[m,n] = gray.shape
+def read_image(img_name):
+    path = 'in/' + img_name
+    img = cv2.imread(path)
+    return img
 
-limit = 150 # nanti ini bisa diganti
-U_gray_new = U_gray[:,0:limit]
-S_gray_new = np.diag(S_gray)[0:limit,0:limit]
-Vt_gray_new = Vt_gray[0:limit, : ]
-gray_new = np.matmul(np.matmul(U_gray_new,S_gray_new),Vt_gray_new)
-print(gray_new)
-print("gray new shape",gray_new.shape)
-cv2.imwrite('momo_gray.png', gray)
-new_img_name = 'restored_image_limit_'+str(limit)+'.png'
-cv2.imwrite(new_img_name, gray_new)
+def compress_channel(img, limit):
+    U, S, Vt = np.linalg.svd(img)
+    U_new = U[:,0:limit]
+    S_new = np.diag(S)[0:limit,0:limit]
+    Vt_new = Vt[0:limit, : ]
+    img_new = np.matmul(np.matmul(U_new,S_new),Vt_new)
+    return img_new
 
-# img_red = img[:,:,0]
-# img_green = img[:,:,1]
-# img_blue = img[:,:,2]
+def compress_grayscale(img, limit):
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    compressed_gray = compress_channel(gray,limit)
+    return compressed_gray
 
-# U_red, S_red, Vt_red = np.linalg.svd(img_red)
-# U_green, S_green, Vt_green = np.linalg.svd(img_green)
-# U_blue, S_blue, Vt_blue = np.linalg.svd(img_blue)
+def compress_rgb(img, limit):
+    red = img[:,:,0]
+    green = img[:,:,1]
+    blue = img[:,:,2]
+    red_new = compress_channel(red,limit)
+    green_new = compress_channel(green,limit)
+    blue_new = compress_channel(blue,limit)
+    compressed_rgb = cv2.merge((red_new, green_new, blue_new))
+    return compressed_rgb
 
-# print(img_red)
-# print(img)
-# U_img, S_img, Vt_img = np.linalg.svd(img)
-# cv2.imshow('image',img)
+def write_image(img, img_name, limit):
+    path = 'out/' + img_name + '_' + str(limit) + '.png'
+    cv2.imwrite(path, img)
+
+# MAIN PROGRAM - TESTING
+n = 50
+momo = read_image('momo.jpeg')
+momo_compressed = compress_rgb(momo, n)
+write_image(momo_compressed,'momo_compressed_rgb', n)

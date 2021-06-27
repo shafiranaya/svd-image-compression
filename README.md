@@ -2,6 +2,13 @@
 Tugas Seleksi Ca-IRK 2019<br>
 Spek: https://github.com/williammfu/svd-image-compression
 
+## TODOLIST (nanti didelete)
+- [ ] bikin format tingkat kompresi (-> kayak brp persen gitu nnt diconvert ke limit - gunain shape
+- [ ] run time program
+- [ ] persentase ukuran memori gambar yang dikompresi thd gambar original
+- [ ] readme
+- [ ] huffman coding
+- [ ] algoritma svd sendiri
 ## Cara penggunaan program
 
 
@@ -20,3 +27,5 @@ http://www.math.utah.edu/~goller/F15_M2270/BradyMathews_SVDImage.pdf
 https://www.lagrange.edu/academics/undergraduate/undergraduate-research/citations/18-Citations2020.Compton.pdf
 
 ## Framework dan Library
+- Numpy
+- Opencv2
