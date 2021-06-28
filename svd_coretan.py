@@ -5,6 +5,7 @@ import numpy as np
 # from numpy.linalg.linalg import eigvals
 import scipy.linalg
 import sympy as sp
+# sp.symbols('e,sqrt,I', real=True)
 
 Vt_harusnya = np.array([[-17/(5*sqrt(30)),-10/(5*sqrt(30)), 19/(5*sqrt(30))],
 [-6/(5*sqrt(5)),-5/(5*sqrt(5)),  (8/(5*sqrt(5)))],
@@ -32,7 +33,10 @@ def sympy_to_numpy(sympy_matrix):
 
 # Compute SVD
 
-A = np.array([[3,2,1],[2,1,4]])
+# A = np.array([[3,2,1],[2,1,4]])
+A = np.random.randint(255, size=(20,30))
+
+# A = np.random.randint(255, size=(4,6))
 # A = np.array([[3,2,2],[2,3,-2]])
 # A = np.array([[2,2,0],[-1,1,0]])
 # A = np.array([[3,1,1],[-1,3,1]])
@@ -40,10 +44,22 @@ A = np.array([[3,2,1],[2,1,4]])
 
 # Step 1: Form A'A
 Atranspose_A = np.matmul(A.transpose(),A)
-print(Atranspose_A)
+print("A'A = \n",Atranspose_A)
 
 # Step 2: Determine eigenvalues of A'A
+# eigenValues,eigenVectors = np.linalg.eig(Atranspose_A)
+# idx = eigenValues.argsort()
+# eigenValues = eigenValues[idx]
+# eigenVectors = eigenVectors[:,idx]
+# print("eigenValues: \n",eigenValues)
+# print("eigenVectors: \n",eigenVectors)
+
 e_value, e_vector = np.linalg.eig(Atranspose_A)
+e_value= sorted(e_value,reverse=True)
+# for v in e_value:
+#     v = float(v)
+print("e_Value:\n",(e_value))
+
 # e_value, e_vector = scipy.linalg.eigvals(Atranspose_A)
 # print("e_value = \n",e_value)
 
@@ -58,16 +74,17 @@ e_value, e_vector = np.linalg.eig(Atranspose_A)
 
 eigenvalue = []
 coba_eigenvector = np.linalg.eigh(Atranspose_A)
-# coba_eigenvector_sort = sorted(coba_eigenvector,key=coba_eigenvector[0],reverse=True)
-# coba_eigenvector.transpose()
-# coba_eigenvector = []
-eigenvects = sp.Matrix(Atranspose_A).eigenvects()
-eigenvects = sorted(eigenvects,reverse=True) # decreasing magnitude
-# print("eigenvector:\n",eigenvects)
-for i in range(len(eigenvects)):
-    eigenvalue.append(eigenvects[i][0])
-
-print('eigen value: ',eigenvalue)
+# # coba_eigenvector_sort = sorted(coba_eigenvector,key=coba_eigenvector[0],reverse=True)
+# # coba_eigenvector.transpose()
+# # coba_eigenvector = []
+# eigenvects = sp.Matrix(Atranspose_A).eigenvects()
+# # eigenvects = sorted(eigenvects,reverse=True) # decreasing magnitude
+# # print("eigenvector:\n",eigenvects)
+# for i in range(len(eigenvects)):
+#     eigenvalue.append((eigenvects[i][0]))
+# print('eigen value: ',eigenvalue)
+# eigenvalue = sorted(eigenvalue,reverse=True )
+# print('eigen value: ',eigenvalue)
 # print("Coba eigenvector = \n", coba_eigenvector[1].transpose())
 tes_eigenvector = coba_eigenvector[1].transpose()
 tes_eigenvector = np.flip(tes_eigenvector,0)
@@ -101,8 +118,9 @@ sigma = np.zeros(A.shape)
 # sigma = sigma.fill_diagonal(eigenvalue)
 for i in range(len(sigma)):
     for j in range(len(sigma[0])):
-        if (i == j) and (eigenvalue[i] != 0):
-            sigma[i,j] = sqrt(eigenvalue[i])
+        # COBA GANTI DULU
+        if (i == j) and (e_value[i] != 0):
+            sigma[i,j] = sqrt(e_value[i])
 print('Sigma: \n',sigma)
 
 # Step 5: Form the matrix U
@@ -113,7 +131,8 @@ for i in range(sigma.shape[0]):
     # first = (1/sqrt(eigenvalue[i])) * A * v[i]
     # second
     # third
-    first = np.multiply(1/(sqrt(eigenvalue[i])),A)
+    # ganti dulu
+    first = np.multiply(1/(sqrt(e_value[i])),A)
     # second = np.matmul(first, e_vector[i])
     # second = np.matmul(first,v[i])
     second = np.matmul(first, v_tes[i])

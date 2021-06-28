@@ -8,11 +8,11 @@ def read_image(img_name):
     return img
 
 def compress_channel(img, limit):
-    U, S, Vt = np.linalg.svd(img)
+    # U, S, Vt = np.linalg.svd(img)
     U, S, Vt = svd(img)
     U_new = U[:,0:limit]
-    S_new = np.diag(S)[0:limit,0:limit]
-    # S_new = S[0:limit,0:limit]
+    # S_new = np.diag(S)[0:limit,0:limit]
+    S_new = S[0:limit,0:limit]
     Vt_new = Vt[0:limit, : ]
     img_new = np.matmul(np.matmul(U_new,S_new),Vt_new)
     return img_new
@@ -37,10 +37,28 @@ def write_image(img, img_name, limit):
     cv2.imwrite(path, img)
 
 # MAIN PROGRAM - TESTING
-n = 5
+n = 321
 # n gaboleh lebih besar dari shape
-momo = read_image('momo_kecil_gray.png')
+momo = read_image('momo.jpeg')
 print(momo.shape)
-momo_compressed = compress_grayscale(momo, n)
+momo_compressed = compress_rgb(momo, n)
 write_image(momo_compressed,'momo_compressed_grayscale', n)
 print("SELESAI")
+
+# TESTING BENER APA ENGGA
+print("---TESTING---")
+A = cv2.cvtColor(momo, cv2.COLOR_BGR2GRAY)
+
+U, Sigma, Vt = svd(A)
+print("A: \n",A)
+A_test = np.matmul(np.matmul(U,Sigma), Vt)
+print("A_test: \n",A_test)
+print("U: \n",U)
+print("Sigma: \n",Sigma)
+print("Vt: \n",Vt)
+
+# BANDINGIN SAMA HASIL LIBRARY
+U_lib, S_lib, Vt_lib = np.linalg.svd(A)
+print("U_lib: \n",U_lib)
+print("S_lib: \n",S_lib)
+print("Vt_lib: \n",Vt_lib)
