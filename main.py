@@ -34,7 +34,9 @@ def write_image(img, img_name, limit):
     cv2.imwrite(path, img)
 
 # MAIN PROGRAM - TESTING
-n = 50
+n = 346
+# n gaboleh lebih besar dari shape
 momo = read_image('momo.jpeg')
+print(momo.shape)
 momo_compressed = compress_rgb(momo, n)
 write_image(momo_compressed,'momo_compressed_rgb', n)

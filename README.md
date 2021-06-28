@@ -16,7 +16,7 @@ Spek: https://github.com/williammfu/svd-image-compression
 
 
 ## Referensi
-https://www.youtube.com/watch?v=nbBvuuNVfco
+https://www.youtube.com/watch?v=nbBvuuNVfco gatau deng ini guna gak
 
 https://davetang.org/file/Singular_Value_Decomposition_Tutorial.pdf
 
@@ -25,6 +25,8 @@ https://www.d.umn.edu/~mhampton/m4326svd_example.pdf
 http://www.math.utah.edu/~goller/F15_M2270/BradyMathews_SVDImage.pdf
 
 https://www.lagrange.edu/academics/undergraduate/undergraduate-research/citations/18-Citations2020.Compton.pdf
+
+https://www.youtube.com/watch?v=SU851ljMIZ8
 
 ## Framework dan Library
 - Numpy
