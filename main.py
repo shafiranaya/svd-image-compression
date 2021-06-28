@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+from svd import svd
 
 def read_image(img_name):
     path = 'in/' + img_name
@@ -8,8 +9,10 @@ def read_image(img_name):
 
 def compress_channel(img, limit):
     U, S, Vt = np.linalg.svd(img)
+    U, S, Vt = svd(img)
     U_new = U[:,0:limit]
     S_new = np.diag(S)[0:limit,0:limit]
+    # S_new = S[0:limit,0:limit]
     Vt_new = Vt[0:limit, : ]
     img_new = np.matmul(np.matmul(U_new,S_new),Vt_new)
     return img_new
@@ -34,9 +37,10 @@ def write_image(img, img_name, limit):
     cv2.imwrite(path, img)
 
 # MAIN PROGRAM - TESTING
-n = 346
+n = 5
 # n gaboleh lebih besar dari shape
-momo = read_image('momo.jpeg')
+momo = read_image('momo_kecil_gray.png')
 print(momo.shape)
-momo_compressed = compress_rgb(momo, n)
-write_image(momo_compressed,'momo_compressed_rgb', n)
+momo_compressed = compress_grayscale(momo, n)
+write_image(momo_compressed,'momo_compressed_grayscale', n)
+print("SELESAI")
