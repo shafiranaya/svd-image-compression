@@ -86,47 +86,47 @@ def svd(A):
     # print("U = \n", U)
     return U, Sigma, Vt
 
-### DRIVER ###
-# # Compute SVD
-img_name = 'momo_kecil_gray.png'
-path = 'in/' + img_name
-img = cv2.imread(path)
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-# # # print(img)
-# # print(gray)
-# # print(img.shape)
-# # print(gray.shape)
-# start = datetime.datetime.now()
-A = gray
-# # A = np.random.randint(255, size=(3,5))
-# # A = np.array([[33,222,111],[222,111,44]])
-# A = np.array([[3,2,1],[2,1,4]])
+# ### DRIVER ###
+# # # Compute SVD
+# img_name = 'momo_kecil_gray.png'
+# path = 'in/' + img_name
+# img = cv2.imread(path)
+# gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+# # # # print(img)
+# # # print(gray)
+# # # print(img.shape)
+# # # print(gray.shape)
+# # start = datetime.datetime.now()
+# A = gray
+# # # A = np.random.randint(255, size=(3,5))
+# # # A = np.array([[33,222,111],[222,111,44]])
+# # A = np.array([[3,2,1],[2,1,4]])
 
-# print(A)
-print(A.shape)
-# new = svd(A)
-# print(new)
-# end = datetime.datetime.now()
-# # path_out = 'out/' + img_name + '.png'
-# # cv2.imwrite(path_out, new)
-# print((end-start))
-# Percobaan 1: 4783
+# # print(A)
+# print(A.shape)
+# # new = svd(A)
+# # print(new)
+# # end = datetime.datetime.now()
+# # # path_out = 'out/' + img_name + '.png'
+# # # cv2.imwrite(path_out, new)
+# # print((end-start))
+# # Percobaan 1: 4783
 
 
-# print(svd(gray))
-# Step 6
-# TESTING BENER APA ENGGA
-print("---TESTING---")
-print("A: \n",A)
-U, Sigma, Vt = svd(A)
-A_test = np.matmul(np.matmul(U,Sigma), Vt)
-print("A_test: \n",A_test)
-print("U: \n",U)
-print("Sigma: \n",Sigma)
-print("Vt: \n",Vt)
+# # print(svd(gray))
+# # Step 6
+# # TESTING BENER APA ENGGA
+# print("---TESTING---")
+# print("A: \n",A)
+# U, Sigma, Vt = svd(A)
+# A_test = np.matmul(np.matmul(U,Sigma), Vt)
+# print("A_test: \n",A_test)
+# print("U: \n",U)
+# print("Sigma: \n",Sigma)
+# print("Vt: \n",Vt)
 
-# BANDINGIN SAMA HASIL LIBRARY
-U_lib, S_lib, Vt_lib = np.linalg.svd(A)
-print("U_lib: \n",U_lib)
-print("S_lib: \n",S_lib)
-print("Vt_lib: \n",Vt_lib)
+# # BANDINGIN SAMA HASIL LIBRARY
+# U_lib, S_lib, Vt_lib = np.linalg.svd(A)
+# print("U_lib: \n",U_lib)
+# print("S_lib: \n",S_lib)
+# print("Vt_lib: \n",Vt_lib)

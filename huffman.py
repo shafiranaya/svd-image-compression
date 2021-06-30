@@ -1,8 +1,6 @@
 import numpy as np
 import cv2
 from heapq import heapify, heappop, heappush
-import math
-from io import StringIO
 from bitarray import bitarray
 
 def frequency_table(array):
@@ -21,6 +19,21 @@ def create_heap(dictionary):
         heap.append([val,[key,""]])
     return heap
 
+def create_huffman_dict(heap):
+    heapify(heap)
+    while len(heap) > 1:
+        right = heappop(heap)
+        left = heappop(heap)
+        for pair in right[1:]:
+            pair[1] = '1' + pair[1]
+        for pair in left[1:]:
+            pair[1] = '0' + pair[1]
+        # new node
+        heappush(heap, [right[0]+left[0]] + right[1:] + left[1:])   
+    huffman_list = right[1:] + left[1:]
+    huffman_dict = {item[0]:bitarray(str(item[1])) for item in huffman_list}
+    return huffman_dict
+
 img = cv2.imread('in/momo.jpeg')
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 imgshape = img.shape
@@ -31,32 +44,13 @@ image = image.tolist()[0]
 
 frequency_dict = frequency_table(image)
 heap = create_heap(frequency_dict)
-heapify(heap)
-print("HEAPIFIED: \n",heap)
 
 print("----------")
-while len(heap) > 1:
-    right = heappop(heap)
-    # print("Right = ", right)
-    left = heappop(heap)
-    # print("Left = ", right)
-    for pair in right[1:]:
-        pair[1] = '1' + pair[1]
-    for pair in left[1:]:
-        pair[1] = '0' + pair[1]
-    heappush(heap, [right[0]+left[0]] + right[1:] + left[1:])
-# print(heap)
-# print(heap[0])
-huffman_list = right[1:] + left[1:]
-print("Len huffman list: ",len(huffman_list))
-huffman_dict = {item[0]:bitarray(str(item[1])) for item in huffman_list}
-print("BITARRAY DICT:")
-print(huffman_dict)
-
+huffman_dict = create_huffman_dict(heap)
 encoded_image = bitarray()
 encoded_image.encode(huffman_dict, image)
 # print(encoded_image)
-print("encoded shape: ",len(encoded_image))
+print("encoded len: ",len(encoded_image))
 
 decoded_out = encoded_image.decode(huffman_dict)
 with open('compressed_file.txt', 'wb') as w:
