@@ -5,7 +5,7 @@ import datetime
 import os
 from PIL import Image
 
-def read_image_pil(img_name):
+def read_image(img_name):
     path = 'in/' + img_name
     img = np.asarray(Image.open(path))
     return img
@@ -70,15 +70,15 @@ def compress_rgb_scratch(img, limit):
     red_new = compress_scratch(red,limit)
     green_new = compress_scratch(green,limit)
     blue_new = compress_scratch(blue,limit)
-    rimg = np.zeros(img.shape)
-    rimg[:,:,0] = red_new
-    rimg[:,:,1] = green_new
-    rimg[:,:,2] = blue_new
-    compressed_rgb = rimg.astype(np.uint8)
+    img_new = np.zeros(img.shape)
+    img_new[:,:,0] = red_new
+    img_new[:,:,1] = green_new
+    img_new[:,:,2] = blue_new
+    compressed_rgb = img_new.astype(np.uint8)
     return compressed_rgb
 
 # from image
-def write_image_pil(img, new_img_name, limit):
+def write_image(img, new_img_name, limit):
     path = 'out/' + new_img_name + '_' + str(limit) + '.jpeg'
     img = Image.fromarray(img)
     img.save(path)
@@ -89,17 +89,17 @@ def get_file_size(path):
     return file_size
 
 # MAIN PROGRAM - TESTING
+# print("Masukkan tingkat kompresi yang diinginkan, integer dari 0-")
 lim = int(input("Masukkan tingkat kompresi yang diinginkan (k): "))
 # lim gaboleh lebih besar dari shape
 
 start = datetime.datetime.now()
 file_name = 'momo.jpg'
-momo = read_image_pil(file_name)
+momo = read_image(file_name)
 file_size_awal = get_file_size('in/'+file_name)
 print(momo.shape)
 momo_compressed = compress_rgb_scratch(momo, lim)
-# momo_compressed = np.array(compress_grayscale(momo, lim)[1])
-write_image_pil(momo_compressed,'momo_jpg_scratch_compressed', lim)
+write_image(momo_compressed,'momo_jpg_scratch_compressed', lim)
 file_size_akhir = get_file_size('out/momo_jpg_scratch_compressed_'+str(lim)+'.jpeg')
 end = datetime.datetime.now()
 # print(momo_compressed.shape)

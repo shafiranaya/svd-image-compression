@@ -6,22 +6,23 @@ Spek: https://github.com/williammfu/svd-image-compression
 - [ ] bikin format tingkat kompresi (-> kayak brp persen gitu nnt diconvert ke limit - gunain shape  -> em gausah kali ya
 - [x] run time program
 - [x] persentase ukuran memori gambar yang telah dikompresi thd gambar original -> ternyata masih anehh hasil kompresi nya lebih besar :< pdhl kualitas nya jelek
-- [] readme
+- [ ] readme -> LENGKAPIN!!!
 - [x] huffman coding
-- [x] algoritma svd sendiri (belom perfect)
-- [] rapihin kode2
+- [x] algoritma svd sendiri yey
+- [ ] rapihin kode2
 ## Cara penggunaan program
-
+1. Install requirements terlebih dahulu dengan mengetikkan pada terminal:
+```
+pip3 install numpy
+pip3 install PIL
+pip3 install bitarray
+```
 
 ## Penjelasan tentang algoritma SVD
 based on the idea that if the SVD is known, some of the singular values σ are significant while the others are small and not significant. Thus, if the significant values are kept and the small values are discarded then only the columns of U and V corresponding to the singular values are used. We will see in the following example, as more and more singular values are kept, the quality and representation compared to the original image improves.
 ### Matriks U, S, V', dan Rank
-Algoritma SVD mereduksi suatu matriks A menjadi matriks U, S, dan V' di mana ketiga matriks tersebut diurutkan sehingga komponen-komponen yang penting (significant singular value) berada di bagian matriks U, S, dan V' tersebut. 
-Matriks U adalah matriks berukuran ...
-Matriks S adalah matriks berukuran ...
-Matriks V' adalah matriks berukuran ...
-Pada algoritma SVD, komponen yang penting berada di atas matriks U, S, dan V'. Sehingga kita dapat membatasi rank matriks yang ingin kita ambil, misalnya kita ambil r = 5, maka yang akan dikomputasi adalah
-Walaupun direduksi, dapat dipastikan bahwa komponen yang penting tetap diambil.
+Algoritma SVD mendekomposisi suatu matriks A menjadi tiga submatriks U, S, dan V'. Ketiga submatriks tersebut diurutkan sedemikian sehingga komponen-komponen yang penting (significant singular value) berada di bagian atas matriks U, S, dan V' tersebut, di mana matriks U berukuran m x n, matriks S berukuran m x n, dan matriks V' berukuran n x n. <br>
+Pada algoritma SVD, komponen yang penting berada di atas matriks U, S, dan V'. Sehingga kita dapat membatasi rank matriks yang ingin kita ambil, misalnya kita ambil r sebuah integer positif (dan tidak boleh melebihi image size), maka yang akan dikomputasi untuk mendapatkan 
 ### Cara menghitung SVD
 1. Hitung matriks A'A
 2. Tentukan eigenvalue dari A'A
