@@ -5,10 +5,11 @@ Spek: https://github.com/williammfu/svd-image-compression
 ## TODOLIST (nanti didelete)
 - [ ] bikin format tingkat kompresi (-> kayak brp persen gitu nnt diconvert ke limit - gunain shape 
 - [x] run time program
-- [ ] persentase ukuran memori gambar yang telah dikompresi thd gambar original -> ternyata masih anehh hasil kompresi nya lebih besar :< pdhl kualitas nya jelek
+- [x] persentase ukuran memori gambar yang telah dikompresi thd gambar original -> ternyata masih anehh hasil kompresi nya lebih besar :< pdhl kualitas nya jelek
 - [] readme
-- [ ] huffman coding
+- [x] huffman coding
 - [x] algoritma svd sendiri (belom perfect)
+- [] rapihin kode2
 ## Cara penggunaan program
 
 
