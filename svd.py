@@ -35,7 +35,7 @@ def svd(A):
     # for val in eigenvalue:
     #     val = abs(val)
     eigenvalue = sorted(eigenvalue,reverse=True)
-    print("Eigenvalue=\n",eigenvalue)
+    # print("Eigenvalue=\n",eigenvalue)
 
     # for val in eigenvalue:
     #     val = round(val)
@@ -80,7 +80,7 @@ def svd(A):
         if (eigenvalue[i] > 0):
             u[i] = np.matmul(np.multiply(1/(sqrt((eigenvalue[i]))),A), v[i])
         # u[i] = np.matmul(np.multiply(1/(sqrt((eig_val[i]))),A), v[i])
-    
+
     # print('u: \n', u)
     U = u.transpose()
     # print("U = \n", U)

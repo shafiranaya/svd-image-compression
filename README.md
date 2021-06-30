@@ -3,7 +3,7 @@ Tugas Seleksi Ca-IRK 2019<br>
 Spek: https://github.com/williammfu/svd-image-compression
 
 ## TODOLIST (nanti didelete)
-- [ ] bikin format tingkat kompresi (-> kayak brp persen gitu nnt diconvert ke limit - gunain shape 
+- [ ] bikin format tingkat kompresi (-> kayak brp persen gitu nnt diconvert ke limit - gunain shape  -> em gausah kali ya
 - [x] run time program
 - [x] persentase ukuran memori gambar yang telah dikompresi thd gambar original -> ternyata masih anehh hasil kompresi nya lebih besar :< pdhl kualitas nya jelek
 - [] readme
