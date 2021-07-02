@@ -1,5 +1,4 @@
 import numpy as np
-import cv2
 from heapq import heapify, heappop, heappush
 from bitarray import bitarray
 
@@ -34,45 +33,21 @@ def create_huffman_dict(heap):
     huffman_dict = {item[0]:bitarray(str(item[1])) for item in huffman_list}
     return huffman_dict
 
-img = cv2.imread('in/momo.jpeg')
-img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-imgshape = img.shape
-print("Shape: ",imgshape)
-image = np.reshape(img, (1, imgshape[0]*imgshape[1]))
-print("Shape image reshape: ",image.shape)
-image = image.tolist()[0]
-
-frequency_dict = frequency_table(image)
-heap = create_heap(frequency_dict)
-
-print("----------")
-huffman_dict = create_huffman_dict(heap)
-encoded_image = bitarray()
-encoded_image.encode(huffman_dict, image)
-# print(encoded_image)
-print("encoded len: ",len(encoded_image))
-
-decoded_out = encoded_image.decode(huffman_dict)
-with open('compressed_file.txt', 'wb') as w:
-    encoded_image.tofile(w)
-decoded_out = bitarray()
-padding = 8 - (len(encoded_image) % 8)
-with open('compressed_file.txt', 'rb') as r:
-    decoded_out.fromfile(r)
-
-decoded_out = decoded_out[:-padding] # remove padding
-decoded_out = decoded_out.decode(huffman_dict)
-print(decoded_out)
-decoded_out = np.array(decoded_out)
-print("decoded shape: ",decoded_out.shape)
-output = np.reshape(decoded_out, (imgshape[0], imgshape[1]))
-print(output)
-path_out = 'out/' + 'hasil_huffman'+ '.jpeg'
-cv2.imwrite(path_out, output)
-out = len(encoded_image)
-im = len(image)*8
-compression = 1 - out/im
-print("Out: ",out)
-print("Image: ",im)
-print("Compression: ",compression)
-# print(image)
+def huffman(img):
+    frequency_dict = frequency_table(img)
+    heap = create_heap(frequency_dict)
+    huffman_dict = create_huffman_dict(heap)
+    encoded_image = bitarray()
+    encoded_image.encode(huffman_dict, img)
+    decoded_out = encoded_image.decode(huffman_dict)
+    with open('compressed_file.bin', 'wb') as w:
+        encoded_image.tofile(w)
+    decoded_out = bitarray()
+    padding = 8 - (len(encoded_image) % 8)
+    with open('compressed_file.bin', 'rb') as r:
+        decoded_out.fromfile(r)
+    decoded_out = decoded_out[:-padding] # remove padding
+    decoded_out = decoded_out.decode(huffman_dict)
+    decoded_out = np.array(decoded_out)
+    img_new = np.reshape(decoded_out, (img.shape[0], img.shape[1]))
+    return img_new

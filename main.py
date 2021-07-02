@@ -4,6 +4,7 @@ from svd import svd
 import datetime
 import os
 from PIL import Image
+import huffman
 
 def read_image(img_name):
     path = 'in/' + img_name
@@ -49,6 +50,13 @@ def compress_grayscale(img, limit):
     return compressed_gray
 
 # return matrix
+def compress_grayscale_scratch(img, limit):
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    compressed_gray = compress_scratch(gray,limit)
+    compressed_gray = compressed_gray.astype(np.uint8)
+    return compressed_gray
+
+# return matrix
 def compress_rgb(img, limit):
     red = img[:,:,0]
     green = img[:,:,1]
@@ -78,8 +86,8 @@ def compress_rgb_scratch(img, limit):
     return compressed_rgb
 
 # from image
-def write_image(img, new_img_name, limit):
-    path = 'out/' + new_img_name + '_' + str(limit) + '.jpeg'
+def write_image(img, new_img_name):
+    path = 'out/' + new_img_name
     img = Image.fromarray(img)
     img.save(path)
     print("Berhasil save pada direktori: ", path)
@@ -89,20 +97,44 @@ def get_file_size(path):
     return file_size
 
 # MAIN PROGRAM - TESTING
-# print("Masukkan tingkat kompresi yang diinginkan, integer dari 0-")
-lim = int(input("Masukkan tingkat kompresi yang diinginkan (k): "))
-# lim gaboleh lebih besar dari shape
-
+print("---IMAGE COMPRESSION---")
+# file_name = 'momo.jpg'
+file_name_input = input("Masukkan nama file (terdapat pada direktori in): ")
 start = datetime.datetime.now()
-file_name = 'momo.jpg'
-momo = read_image(file_name)
-file_size_awal = get_file_size('in/'+file_name)
-print(momo.shape)
-momo_compressed = compress_rgb_scratch(momo, lim)
-compressed_file_name = 'momo_jpg_scratch_compressed'
-write_image(momo_compressed,compressed_file_name, lim)
-compressed_file_path = 'out/' + compressed_file_name + '_'+str(lim)+'.jpeg'
-file_size_akhir = get_file_size(compressed_file_path)
+image = read_image(file_name_input)
+input_path = 'in/'+file_name_input
+file_size_awal = get_file_size(input_path)
+print("\n1. Algoritma SVD\n2. Huffman Coding")
+user_input = int(input("Masukkan nomor pilihanmu: "))
+if (user_input == 1):
+    # SVD
+    # print("Masukkan tingkat kompresi yang diinginkan, integer dari 0-")
+    lim = int(input("Masukkan tingkat kompresi yang diinginkan (k): "))
+    # lim gaboleh lebih besar dari shape
+    method_input = int(input("Pilihan kompresi:\n1. Grayscale\n2. RGB\nMasukkan nomor pilihanmu: "))
+    if (method_input == 1):
+        compressed_image = compress_grayscale_scratch(image,lim)
+        compressed_file_name = 'compressed_grayscale_' + str(lim) + '.jpeg'
+    elif (method_input == 2):
+        compressed_image = compress_rgb_scratch(image,lim)
+        compressed_file_name = 'compressed_rgb_' + str(lim) + '.jpeg'
+    else:
+        print("Nomor pilihanmu salah")
+
+elif (user_input == 2):
+    # Huffman
+    compressed_image = huffman.huffman(image)
+    compressed_file_name = 'compressed_huffman'
+else:
+    print("Nomor pilihanmu salah")
+
+# print(momo.shape)
+# momo_compressed = compress_rgb_scratch(momo, lim)
+# compressed_file_name = 'momo_jpg_scratch_compressed'
+write_image(compressed_image,compressed_file_name)
+output_path = 'out/' + compressed_file_name
+# Output
+file_size_akhir = get_file_size(output_path)
 end = datetime.datetime.now()
 # print(momo_compressed.shape)
 duration = (end-start).total_seconds()
