@@ -1,9 +1,9 @@
 import numpy as np
 import cv2
-from svd import svd
 import datetime
 import os
 from PIL import Image
+from svd import svd
 import huffman
 
 def read_image(img_name):
@@ -12,7 +12,6 @@ def read_image(img_name):
     return img
 
 def compress_channel(img, limit):
-    n = len(img)
     U, S, Vt = np.linalg.svd(img)
     U_new = U[:,0:limit]
     S_new = np.diag(S)[0:limit,0:limit]
@@ -26,9 +25,7 @@ def compress_channel(img, limit):
                 img_new[i,j] = 255
     return img_new
 
-# TODO mungkin benerin
 def compress_scratch(img, limit):
-    # n = len(img)
     U, S, Vt = svd(img)
     U_new = U[:,0:limit]
     S_new = S[0:limit,0:limit]
@@ -104,44 +101,41 @@ start = datetime.datetime.now()
 image = read_image(file_name_input)
 input_path = 'in/'+file_name_input
 file_size_awal = get_file_size(input_path)
-print("\n1. Algoritma SVD\n2. Huffman Coding")
+file_format = '.jpeg'
+print("Metode Kompresi\n1. Algoritma SVD\n2. Huffman Coding")
 user_input = int(input("Masukkan nomor pilihanmu: "))
+
 if (user_input == 1):
     # SVD
-    # print("Masukkan tingkat kompresi yang diinginkan, integer dari 0-")
-    lim = int(input("Masukkan tingkat kompresi yang diinginkan (k): "))
+    print("Masukkan tingkat kompresi yang diinginkan (k), bilangan bulat dari 0 sampai " + str(image.shape[0]))
+    lim = int(input("Masukkan nilai k: "))
     # lim gaboleh lebih besar dari shape
-    method_input = int(input("Pilihan kompresi:\n1. Grayscale\n2. RGB\nMasukkan nomor pilihanmu: "))
+    method_input = int(input("Pilihan kompresi\n1. Grayscale\n2. RGB\nMasukkan nomor pilihanmu: "))
     if (method_input == 1):
         compressed_image = compress_grayscale_scratch(image,lim)
-        compressed_file_name = 'compressed_grayscale_' + str(lim) + '.jpeg'
+        compressed_file_name = 'compressed_grayscale_' + str(lim) + file_format
     elif (method_input == 2):
         compressed_image = compress_rgb_scratch(image,lim)
-        compressed_file_name = 'compressed_rgb_' + str(lim) + '.jpeg'
+        compressed_file_name = 'compressed_rgb_' + str(lim) + file_format
     else:
         print("Nomor pilihanmu salah")
-
 elif (user_input == 2):
     # Huffman
     compressed_image = huffman.huffman(image)
-    compressed_file_name = 'compressed_huffman'
+    compressed_file_name = 'compressed_huffman' + file_format
 else:
     print("Nomor pilihanmu salah")
 
-# print(momo.shape)
-# momo_compressed = compress_rgb_scratch(momo, lim)
-# compressed_file_name = 'momo_jpg_scratch_compressed'
 write_image(compressed_image,compressed_file_name)
 output_path = 'out/' + compressed_file_name
-# Output
 file_size_akhir = get_file_size(output_path)
 end = datetime.datetime.now()
-# print(momo_compressed.shape)
 duration = (end-start).total_seconds()
+persentase = round(file_size_akhir/file_size_awal * 100, 3)
+
 print("Selesai dalam waktu", duration,"detik.")
 print("File size awal:", file_size_awal, "bytes")
 print("File size akhir:", file_size_akhir, "bytes")
-persentase = round(file_size_akhir/file_size_awal * 100, 3)
 print("Persentase: ", persentase, "%")
 
 # # TESTING BENER APA ENGGA

@@ -40,11 +40,11 @@ def huffman(img):
     encoded_image = bitarray()
     encoded_image.encode(huffman_dict, img)
     decoded_out = encoded_image.decode(huffman_dict)
-    with open('compressed_file.bin', 'wb') as w:
+    with open('out/compressed_file.bin', 'wb') as w:
         encoded_image.tofile(w)
     decoded_out = bitarray()
     padding = 8 - (len(encoded_image) % 8)
-    with open('compressed_file.bin', 'rb') as r:
+    with open('out/compressed_file.bin', 'rb') as r:
         decoded_out.fromfile(r)
     decoded_out = decoded_out[:-padding] # remove padding
     decoded_out = decoded_out.decode(huffman_dict)
