@@ -99,12 +99,14 @@ momo = read_image(file_name)
 file_size_awal = get_file_size('in/'+file_name)
 print(momo.shape)
 momo_compressed = compress_rgb_scratch(momo, lim)
-write_image(momo_compressed,'momo_jpg_scratch_compressed', lim)
-file_size_akhir = get_file_size('out/momo_jpg_scratch_compressed_'+str(lim)+'.jpeg')
+compressed_file_name = 'momo_jpg_scratch_compressed'
+write_image(momo_compressed,compressed_file_name, lim)
+compressed_file_path = 'out/' + compressed_file_name + '_'+str(lim)+'.jpeg'
+file_size_akhir = get_file_size(compressed_file_path)
 end = datetime.datetime.now()
 # print(momo_compressed.shape)
-
-print("Selesai dalam waktu",(end-start),"seconds.")
+duration = (end-start).total_seconds()
+print("Selesai dalam waktu", duration,"detik.")
 print("File size awal:", file_size_awal, "bytes")
 print("File size akhir:", file_size_akhir, "bytes")
 persentase = round(file_size_akhir/file_size_awal * 100, 3)

@@ -10,18 +10,17 @@ Spek: https://github.com/williammfu/svd-image-compression
 - [x] huffman coding
 - [x] algoritma svd sendiri yey
 - [ ] rapihin kode2
+- [ ] bikin reqs.txt
 ## Cara penggunaan program
 1. Install requirements terlebih dahulu dengan mengetikkan pada terminal:
 ```
-pip3 install numpy
-pip3 install PIL
-pip3 install bitarray
+pip install -r requirements.txt
 ```
 
 ## Penjelasan tentang algoritma SVD
 based on the idea that if the SVD is known, some of the singular values σ are significant while the others are small and not significant. Thus, if the significant values are kept and the small values are discarded then only the columns of U and V corresponding to the singular values are used. We will see in the following example, as more and more singular values are kept, the quality and representation compared to the original image improves.
 ### Matriks U, S, V', dan Rank
-Algoritma SVD mendekomposisi suatu matriks A menjadi tiga submatriks U, S, dan V'. Ketiga submatriks tersebut diurutkan sedemikian sehingga komponen-komponen yang penting (significant singular value) berada di bagian atas matriks U, S, dan V' tersebut, di mana matriks U berukuran m x n, matriks S berukuran m x n, dan matriks V' berukuran n x n. <br>
+Algoritma SVD mendekomposisi suatu matriks A menjadi tiga submatriks U, S, dan V'. Ketiga submatriks tersebut disusun sedemikian sehingga komponen-komponen yang penting (significant singular value) berada di bagian atas matriks U, S, dan V' tersebut, di mana matriks U berukuran m x n, matriks S berukuran m x n, dan matriks V' berukuran n x n. <br>
 Pada algoritma SVD, komponen yang penting berada di atas matriks U, S, dan V'. Sehingga kita dapat membatasi rank matriks yang ingin kita ambil, misalnya kita ambil r sebuah integer positif (dan tidak boleh melebihi image size), maka yang akan dikomputasi untuk mendapatkan 
 ### Cara menghitung SVD
 1. Hitung matriks A'A
