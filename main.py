@@ -95,8 +95,7 @@ def get_file_size(path):
 
 # MAIN PROGRAM - TESTING
 print("---IMAGE COMPRESSION---")
-# file_name = 'momo.jpg'
-file_name_input = input("Masukkan nama file (terdapat pada direktori in): ")
+file_name_input = input("Masukkan nama file beserta formatnya (terdapat pada direktori in): ")
 start = datetime.datetime.now()
 image = read_image(file_name_input)
 input_path = 'in/'+file_name_input
@@ -120,8 +119,7 @@ if (user_input == 1):
     else:
         print("Nomor pilihanmu salah")
 elif (user_input == 2):
-    # Huffman
-    compressed_image = huffman.huffman(image)
+    compressed_image = huffman.huffman(image,input_path)
     compressed_file_name = 'compressed_huffman' + file_format
 else:
     print("Nomor pilihanmu salah")
