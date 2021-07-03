@@ -40,7 +40,7 @@ Huffman Coding
 - https://github.com/hemanth-nakshatri/Image-Compression
 - https://github.com/TiongSun/DataCompression
 Numpy Documentation - https://numpy.org/doc/
-## Framework dan Library
+## Library
 - numpy, untuk melakukan operasi matriks, seperti matmul (matrix multiplication) serta melakukan operasi linalg (algoritma svd, mencari eigenvalue dan eigenvector), dan lain-lain
 - math untuk menghitung akar (square root)
 - opencv2, untuk mengubah gambar menjadi grayscale
@@ -49,3 +49,6 @@ Numpy Documentation - https://numpy.org/doc/
 - os, untuk mendapatkan file size dari gambar sebelum kompresi dan sesudah kompresi
 - heapq, untuk membentuk struktur data binary tree untuk pohon Huffman
 - bitarray, untuk menyimpan data gambar dalam binary dari pohon Huffman
+
+## Author
+13519040 - Shafira Naya Aprisadianti

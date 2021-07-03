@@ -11,6 +11,17 @@ def read_image(img_name):
     img = np.asarray(Image.open(path))
     return img
 
+# from image
+def write_image(img, new_img_name):
+    path = "out/" + new_img_name
+    img = Image.fromarray(img)
+    img.save(path)
+    print("Berhasil save pada direktori: ", path)
+
+def get_file_size(path):
+    file_size = os.path.getsize(path)
+    return file_size
+    
 def compress_channel(img, limit):
     U, S, Vt = np.linalg.svd(img)
     U_new = U[:,0:limit]
@@ -81,17 +92,6 @@ def compress_rgb_scratch(img, limit):
     img_new[:,:,2] = blue_new
     compressed_rgb = img_new.astype(np.uint8)
     return compressed_rgb
-
-# from image
-def write_image(img, new_img_name):
-    path = "out/" + new_img_name
-    img = Image.fromarray(img)
-    img.save(path)
-    print("Berhasil save pada direktori: ", path)
-
-def get_file_size(path):
-    file_size = os.path.getsize(path)
-    return file_size
 
 # main program
 print("---IMAGE COMPRESSION---")
