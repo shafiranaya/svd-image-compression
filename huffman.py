@@ -25,9 +25,9 @@ def create_huffman_dict(heap):
         right = heappop(heap)
         left = heappop(heap)
         for pair in right[1:]:
-            pair[1] = '1' + pair[1]
+            pair[1] = "1" + pair[1]
         for pair in left[1:]:
-            pair[1] = '0' + pair[1]
+            pair[1] = "0" + pair[1]
         # new node
         heappush(heap, [right[0]+left[0]] + right[1:] + left[1:])   
     huffman_list = right[1:] + left[1:]
@@ -46,11 +46,11 @@ def huffman(img, path):
     encoded_image = bitarray()
     encoded_image.encode(huffman_dict, img)
     decoded_out = encoded_image.decode(huffman_dict)
-    with open('out/compressed_image.bin', 'wb') as w:
+    with open("out/compressed_image.bin", "wb") as w:
         encoded_image.tofile(w)
     decoded_out = bitarray()
     padding = 8 - (len(encoded_image) % 8)
-    with open('out/compressed_image.bin', 'rb') as r:
+    with open("out/compressed_image.bin", "rb") as r:
         decoded_out.fromfile(r)
     decoded_out = decoded_out[:-padding] # remove padding
     decoded_out = decoded_out.decode(huffman_dict)
@@ -59,7 +59,7 @@ def huffman(img, path):
     img_new = img_new.astype(np.uint8)
     return img_new
 
-# img = cv2.imread('in/momo.jpeg')
+# img = cv2.imread("in/momo.jpeg")
 # img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 # imgshape = img.shape
 # print("Shape: ",imgshape)
@@ -79,9 +79,9 @@ def huffman(img, path):
 #     left = heappop(heap)
 #     # print("Left = ", right)
 #     for pair in right[1:]:
-#         pair[1] = '1' + pair[1]
+#         pair[1] = "1" + pair[1]
 #     for pair in left[1:]:
-#         pair[1] = '0' + pair[1]
+#         pair[1] = "0" + pair[1]
 #     heappush(heap, [right[0]+left[0]] + right[1:] + left[1:])
 
 # huffman_list = right[1:] + left[1:]
@@ -94,11 +94,11 @@ def huffman(img, path):
 # print("encoded shape: ",len(encoded_image))
 
 # decoded_out = encoded_image.decode(huffman_dict)
-# with open('compressed_file.txt', 'wb') as w:
+# with open("compressed_file.txt", "wb") as w:
 #     encoded_image.tofile(w)
 # decoded_out = bitarray()
 # padding = 8 - (len(encoded_image) % 8)
-# with open('compressed_file.txt', 'rb') as r:
+# with open("compressed_file.txt", "rb") as r:
 #     decoded_out.fromfile(r)
 
 # decoded_out = decoded_out[:-padding] # remove padding
@@ -108,7 +108,7 @@ def huffman(img, path):
 # # print("decoded shape: ",decoded_out.shape)
 # output = np.reshape(decoded_out, (imgshape[0], imgshape[1]))
 # # print(output)
-# path_out = 'out/' + 'hasil_huffman'+ '.jpeg'
+# path_out = "out/" + "hasil_huffman"+ ".jpeg"
 # cv2.imwrite(path_out, output)
 # out = len(encoded_image)
 # im = len(image)*8
